@@ -1,13 +1,13 @@
 {
     "name": "Seterra features",
-    "version": "0.1",
-    "description": "Darkmode, nocursor, noflag",
+    "version": "0.5",
+    "description": "Darkmode, nocursor, dark map, dark label",
     "permissions": ["activeTab", "scripting"],
-    "host_permissions": ["https://geoguessr.com/vgp/*"],
+    "host_permissions": ["https://*.geoguessr.com/*"],
     "content_scripts": [
         {
-            "matches": ["https://*.geoguessr.com/vgp/*"],
-            "js": ["darkmode.js"]
+            "matches": ["https://*.geoguessr.com/*"],
+            "js": ["script.js"]
         }
     ],
     "manifest_version": 3
