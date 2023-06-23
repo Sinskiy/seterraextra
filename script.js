@@ -2,6 +2,46 @@ const setting = document.querySelector(".game-footer_settingsButton__6xv0w");
 const rootStyle = document.querySelector(":root").style;
 const header = document.querySelector(".game-header_wrapper__82t4V");
 const label = document.querySelector(".game-tooltip_tooltip__iJM_6");
+const modal = document.querySelector(".modal_content__mrR0Q");
+
+added = false;
+let exactTime;
+function checkModal() {
+    if (document.querySelector(".modal_content__mrR0Q") && !added)
+    {
+        addExactTime();
+    }
+    else if (!document.querySelector(".modal_content__mrR0Q") && added)
+    {
+        added = false;
+    }
+}
+function addExactTime()
+{
+    const allCels = document.querySelectorAll(".initial-score-view_cell__or6bz");
+    allCels.forEach((cell) => {
+        if (cell.title !== "")
+        {
+            exactTime = cell.title;
+            return;
+        }
+    })
+    const exactTimeElement = document.createElement("div");
+    exactTimeElement.classList.add("initial-score-view_cell__or6bz");
+    const exactTimeName = document.createElement("div");
+    exactTimeName.innerText = "Exact time";
+    exactTimeName.classList.add("body-text_sizeSmall__hhbe1");
+    const exactTimeTime = document.createElement("div");
+    exactTimeTime.innerText = exactTime;
+    exactTimeTime.classList.add("label_sizeSmall__nPGP5");
+
+    const modalInfo = document.querySelector(".initial-score-view_info__zJdwU");
+    modalInfo.appendChild(exactTimeElement);
+    exactTimeElement.appendChild(exactTimeName);
+    exactTimeElement.appendChild(exactTimeTime);
+
+    added = true;
+}
 
 let darkmodeInput;
 let darkLabelInput;
@@ -176,8 +216,11 @@ function darkLabelListener()
     if (darkLabelInput.checked)
     {
         darkLabel = true;
-        label.style.background = dark;
-        label.style.color = light;
+        if (label.style)
+        {
+            label.style.background = dark;
+            label.style.color = light;
+        }
     }
     else if (!darkLabelInput.checked)
     {
@@ -250,3 +293,4 @@ function gamemodeChangeListener()
 const gamemods = document.querySelectorAll('input[name="game-mode"]');
 gamemods.forEach((gamemode) => gamemode.addEventListener("change", gamemodeChangeListener));
 setting.addEventListener("click", addElements);
+window.addEventListener("click", checkModal);
