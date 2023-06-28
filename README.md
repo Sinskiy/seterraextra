@@ -5,9 +5,9 @@
 <h1 align="center">
   Seterra extra
 </h1>
-<h2 align="center">
+<p align="center">
    Darkmode, no label and more cool features for Seterra 
-</h2>
+</p>
 
 <h3>Installation & usage guide</h3>
 
