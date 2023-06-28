@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./seterraextra-chromium/images/icon128.png" alt="seterraextra-logo"/>
+  <img src="./chromium/images/icon128.png" alt="seterraextra-logo"/>
 </p>
 
 <h1 align="center">
