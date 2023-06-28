@@ -1,8 +1,9 @@
-// run this every page load to make header dark if user chose dark quiz header
+// run this every page load to make header dark if user chose dark quiz header and custom water
 const storageDarkHeaderOnUpdate = chrome.storage.local.get("dark_quiz_header")
   .then((item) => {
     acceptMessage("dark_quiz_header", item.dark_quiz_header)
   });
+
 const storageWaterOnUpdate = chrome.storage.local.get("custom_water")
   .then((item) => {
     acceptMessage("custom_water", item.custom_water)
@@ -12,9 +13,6 @@ const storageWaterOnUpdate = chrome.storage.local.get("custom_water")
 let clickEventListener;
 let anotherClickEvenListener;
 let keyboardEventListener;
-
-let exactTimeOnScreen = false;
-let blockExactTime = false;
 
 let darkHeader = false;
 let darkMode = false;
@@ -31,27 +29,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
 // check message data
 function acceptMessage(changedInputID, inputValue) {
-  if (changedInputID === "exact_time") {
-    if (inputValue === true) {
-      // first remove every listener to not create duplicates
-      removeEventListener("click", clickEventListener);
-      removeEventListener("mousedown", anotherClickEvenListener);
-      removeEventListener("keydown", keyboardEventListener);
-      // add event listeners again
-      clickEventListener = window.addEventListener("click", getExactTime);
-      keyboardEventListener = window.addEventListener("keydown", resetExactTimeWasShown);
-      anotherClickEvenListener = window.addEventListener("mousedown", resetExactTimeWasShown);
-      blockExactTime = false;
-    } else {
-      // remove every event listener
-      removeEventListener("click", clickEventListener);
-      removeEventListener("mousedown", anotherClickEvenListener);
-      removeEventListener("keydown", keyboardEventListener);
-      // if true, exact time will not be shown
-      blockExactTime = true;
-    }
-  }
-
   if (changedInputID === "no_label") {
     if (inputValue === true) {
       manageLabel(inputValue);
@@ -77,51 +54,6 @@ function acceptMessage(changedInputID, inputValue) {
   if (changedInputID === "custom_water") {
     manageWater(inputValue);
   }
-}
-
-function getExactTime() {
-  const modalWindow = ".modal_content__mrR0Q";
-  // if there are no modal window, or exact time was shown, or exact time need to be blocked, user won't see exact time
-    if (document.querySelector(modalWindow) !== null && exactTimeOnScreen === false && blockExactTime === false) {
-        const everyElementInModal = document.querySelectorAll(".initial-score-view_cell__or6bz");
-        everyElementInModal.forEach((element) => {
-          // the only element with title keep exact time in its title
-            if (element.title !== "") {
-                const exactTime = element.title;
-                addElementExactTime(exactTime);
-            }
-        })
-    }
-}
-
-function resetExactTimeWasShown() {
-  const modalWindow = ".modal_content__mrR0Q";
-  // if no modal window, set exact time on screehn to false, because user already restarted the quiz
-  if (document.querySelector(modalWindow) === null) {
-    exactTimeOnScreen = false;
-  }
-}
-
-// creates element with exact time
-function addElementExactTime(exactTime) {
-  const exactTimeWrapper = document.createElement("div");
-  exactTimeWrapper.classList.add("initial-score-view_cell__or6bz");
-  const exactTimeName = document.createElement("div");
-  exactTimeName.innerText = "Exact time";
-  exactTimeName.classList.add("body-text_sizeSmall__hhbe1");
-  const exactTimeTime = document.createElement("div");
-  exactTimeTime.innerText = exactTime;
-  exactTimeTime.classList.add("label_sizeSmall__nPGP5");
-
-  const modalInfo = document.querySelector(".initial-score-view_info__zJdwU");
-  modalInfo.appendChild(exactTimeWrapper);
-  exactTimeWrapper.appendChild(exactTimeName);
-  exactTimeWrapper.appendChild(exactTimeTime);
-  // if element was created, then exact time is on screen
-  exactTimeOnScreen = true;
-
-  keyboardEventListener = window.addEventListener("keydown", resetExactTimeWasShown);
-  anotherClickEvenListener = window.addEventListener("mousedown", resetExactTimeWasShown);
 }
 
 function manageLabel(boolean) {
@@ -258,42 +190,29 @@ function manageWater(value) {
   if (water !== null) water.style.fill = value;
 }
 
-function onResponseExactTime(item) {
-  if (item.exact_time === true) {
-    removeEventListener("click", clickEventListener);
-    clickEventListener = window.addEventListener("click", getExactTime);
-    blockExactTime = false;
-  }
-  else if (item.exact_time === false) {
-    removeEventListener("click", clickEventListener);
-    removeEventListener("mousedown", anotherClickEvenListener);
-    removeEventListener("keydown", keyboardEventListener);
-    blockExactTime = true;
-  }
-}
-
 function onResponseNoLabel(item) {
   // if no_label is true it'll remove. else it'll add label 
   manageLabel(item.no_label);
 }
 
 function onResponseDarkLabel(item) {
-  // if no_label is true it'll remove. else it'll add label 
+  // if dark_label is true it'll change label to dark. else it'll change label to light
   manageDarkLabel(item.dark_label);
 }
 
 function onResponseDarkMode(item) {
-  manageDarkMode(item.dark_mode, true);
+  let sendFromTimer = true;
+  // if darkmode is true, it'll add dark mode. else it'll bring back light mode
+  manageDarkMode(item.dark_mode, sendFromTimer);
 }
 
 function onReject(error) {
+  // if error in response
   console.error(error);
 }
 
 // WARNING! SETTED MANUALLY!
 setInterval(() => {
-  const storageCheckboxExactTime = chrome.storage.local.get("exact_time")
-  .then(onResponseExactTime, onReject);
   const storageDarkHeader = chrome.storage.local.get("dark_quiz_header")
   .then((item) => manageHeader(item.dark_quiz_header))
 
@@ -315,6 +234,8 @@ setInterval(() => {
 
 
 }, 1000);
+
+// WARNING! SETTED MANUALLY!
 setInterval(() => {
   const storageCheckboxNoLabel = chrome.storage.local.get("no_label")
   .then(onResponseNoLabel, onReject);
