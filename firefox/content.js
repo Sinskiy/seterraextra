@@ -147,6 +147,7 @@ function manageDarkMode(boolean, fromTimer) {
       }
     }
   }
+  
   else {
     backgroundBorders.style.background = white;
     backgroundBorders.style.color = black;

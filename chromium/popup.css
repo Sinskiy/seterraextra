@@ -26,3 +26,25 @@ input.checkbox + h3.checkboxText {
     margin-left: 1rem;
     padding-bottom: 0.2rem;
 }
+
+#images {
+    display: flex;
+    flex-direction: column;
+}
+
+#discord, a {
+    display: flex;
+    align-items: center;
+}
+
+img {
+    display: flex;
+    width: 32px;
+    height: 32px;
+    aspect-ratio: 1 / 1;
+    margin-right: 0.5rem;
+}
+
+img#github {
+    filter: invert(1);
+}
