@@ -1,4 +1,7 @@
 ### Installation guide
+First of all, there is already uploaded extension in Firefox Add-on store, but it's outdated. There's only nocursor and exact time (that should be removed)
+[Extension](https://addons.mozilla.org/en-US/firefox/addon/seterraextra/)
+
 1. Download ZIP file of my repo or clone my repo. 
 
     Also you can download my repo through Google Drive
