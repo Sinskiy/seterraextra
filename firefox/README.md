@@ -17,7 +17,6 @@
     gh repo clone Sinskiy/seterraextra
     ```
     </details>
-    </br>
 
 2. Extract your zip file
 
