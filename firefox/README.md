@@ -40,23 +40,25 @@ First of all, there is already uploaded extension in Firefox Add-on store, but i
 - Extention works only on pages, that contain */vgp/*, */fl/* or */ in their url
 
 This extensions adds following features for Seterra:
-- No label. When enabled, you don't have label with the name of the country you need to click and flag of that country.
+- **No label**. When enabled, you don't have label with the name of the country you need to click and flag of that country.
 
-    Notes:
+    **Notes**:
     - To return your label you either need to finish your quiz or restart the page.
     - Can't be enabled when dark label is enabled
 
     <br/>
 
-- Dark label. When enabled, background of label with the name of the country you need to click and flag of that country turns dark, and text on the label turns white.
+- **No corner flag**. When enabled, flag in the top right corner of the quiz is invisible
 
-    Notes:
+- **Dark label**. When enabled, background of label with the name of the country you need to click and flag of that country turns dark, and text on the label turns white.
+
+    **Notes**:
     - Can't be enabled when no label is enabled
 
     <br/>
 
-- Darkmode. When enabled, background turns dark, and color turns white (actually there were a lot of small issues to fix, so that's not as simple as sounds)
+- **Dark quiz header**. When enabled, header of the current quiz (that thing on the top of the quiz that displays the timer and more) turns dark
 
-- Dark quiz header. When enabled, header of the current quiz (that thing on the top of the quiz that displays the timer and more) turns dark
+- **Darkmode**. When enabled, background turns dark, and color turns white (actually there were a lot of small issues to fix, so that's not as simple as sounds)
 
 There is a custom water feature in Chrome version of extension, but Firefox version doesn't have this feature because Firefox color picker works really different. Probably I'll add this feature in Firefox soon
