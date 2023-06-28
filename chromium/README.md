@@ -37,7 +37,7 @@
 
 5. Choose "Load unpacked"
 
-6. Load folder <strong>seterraextra-chromium</strong>. Don't upload wrong folder!
+6. Load folder **chromium**. Don't upload wrong folder!
 
 7. I suggest to pin Seterra extra. 
 
