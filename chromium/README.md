@@ -6,7 +6,7 @@
     <details>
     <summary>For Chrome & Brave (tested on Brave)</summary>
 
-    You need to click on extensions icon in the top right corner, and then click `manage extensions` (or just type `chrome://extensions` in URL search bar)
+    You need to click on extensions icon in the top right corner, and then click `manage extensions` (or just type `chrome://extensions` in the search bar)
     </details>
 
     </br>
