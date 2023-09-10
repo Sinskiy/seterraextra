@@ -1,7 +1,7 @@
 ### Installation guide
 1. Download [chromium.crx file of my extension](https://github.com/Sinskiy/seterraextra/releases/latest)
 
-3. Go to window for managing extensions in your browser.
+2. Go to window for managing extensions in your browser.
 
     <details>
     <summary>For Chrome & Brave (tested on Brave)</summary>
@@ -11,16 +11,8 @@
 
     </br>
 
-4. Enable developer mode.
+3. Enable developer mode.
 
     Usually it's in top right corner of the window for managing extensions
 
-5. Drag-n-drop `chromium.crx` file
-
-7. I suggest to pin Seterra extra.
-
-    <details>
-    <summary>For Chrome & Brave (tested on Brave)</summary>
-
-    In Chrome, you just need to click on the `extension icon` in the top right corner, and then click on `pin` icon
-    </details>
+4. Drag-n-drop `chromium.crx` file
