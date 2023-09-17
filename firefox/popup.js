@@ -32,7 +32,6 @@ async function getStorage(element, nonCheckboxes = false) {
 
     let sliderValue = await chrome.storage.local.get(['label_opacity'])
     slider.value = sliderValue['label_opacity']
-    console.log(slider, sliderValue)
   }
 }
 

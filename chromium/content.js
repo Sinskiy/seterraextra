@@ -232,7 +232,12 @@ function manageBoldness(state) {
 
 function changeBoldness(state) {
   document.querySelectorAll('strong').forEach(element => {
-    element.style.fontWeight = 'normal'
+    if (state) {
+      element.style.fontWeight = 'normal'
+    }
+    else {
+      element.style.fontWeight = 'bold'
+    }
   })
 }
 

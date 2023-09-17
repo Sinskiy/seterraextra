@@ -7,17 +7,26 @@ const background = '#232323'
 const labelAreaSelector = '.game-area_tooltip__uwKTk:not(#createdLabelArea)'
 const labelSelector = labelAreaSelector + '>div'
 let manageLabelsInterval
+let manageLabelsTime = 10
 
 const cornerFlag = '.corner-image_wrapper__6gzbe'
 let manageFlagInterval
+let manageFlagTime = 100
 
 const quizHeader = '[data-qa="game-map-header"]'
 let manageHeaderInterval
+let manageHeaderTime = 100
 
 let manageThemeBigInterval
+let manageThemeBigTime = 300
 let manageThemeSmallInterval
+let manageThemeSmallTime = 100
 
 let manageLabelOpacityInterval
+let manageLabelOpacityTime = 100
+
+let manageBoldnessInterval
+let manageBoldnessTime = 50
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       acceptMessage(message.id, message.state);
@@ -48,11 +57,17 @@ function acceptMessage(id, state) {
   else if (id == 'label_opacity') {
     manageLabelOpacity(state)
   }
+  else if (id == 'remove_boldness') {
+    manageBoldness(state)
+  }
+  else if (id == 'low_pc_specs') {
+    manageLowSpecs(state)
+  }
 }
 
 function manageLabels(state) {
   clearInterval(manageLabelsInterval)
-  manageLabelsInterval = setInterval(changeLabels, 10, state);
+  manageLabelsInterval = setInterval(changeLabels, manageLabelsTime, state);
 }
 
 function changeLabels(state) {
@@ -76,7 +91,7 @@ function changeLabels(state) {
 
 function manageFlag(state) {
   clearInterval(manageFlagInterval)
-  manageFlagInterval = setInterval(changeFlag, 100, state);
+  manageFlagInterval = setInterval(changeFlag, manageFlagTime, state);
 }
 
 function changeFlag(state) {
@@ -92,7 +107,7 @@ function changeFlag(state) {
 
 function manageHeader(state) {
   clearInterval(manageHeaderInterval)
-  manageHeaderInterval = setInterval(changeHeader, 100, state);
+  manageHeaderInterval = setInterval(changeHeader, manageHeaderTime, state);
 }
 
 function changeHeader(state) {
@@ -111,8 +126,8 @@ function changeHeader(state) {
 function manageTheme(state) {
   clearInterval(manageThemeBigInterval)
   clearInterval(manageThemeSmallInterval)
-  manageThemeBigInterval = setInterval(changeThemeConstant, 300, state)
-  manageThemeSmallInterval = setInterval(changeThemeVariables, 100, state)
+  manageThemeBigInterval = setInterval(changeThemeConstant, manageThemeBigTime, state)
+  manageThemeSmallInterval = setInterval(changeThemeVariables, manageThemeSmallTime, state)
 }
 
 function changeThemeConstant(state) {
@@ -183,6 +198,17 @@ function changeThemeVariables(state) {
     }
   }
 
+  if (checkExistence('.game-type-map-input_form__VgUbS')) {
+    document.querySelector('.game-type-map-input_form__VgUbS').style.backgroundColor = 'var(--originallyLight)'
+
+    document.querySelector('[data-qa="typing-mode-input"]').style.color = 'var(--originallyDark)'
+    document.querySelector('[data-qa="typing-mode-input"]').style.backgroundColor = 'var(--originallyLight)'
+    if (checkExistence('.game-type-map-input_hint__AFJ47')) {
+      document.querySelector('.game-type-map-input_hint__AFJ47').style.color = 'var(--originallyDark)'
+      document.querySelector('.game-type-map-input_hint__AFJ47').style.backgroundColor = 'var(--originallyLight)'
+    }
+  }
+
   if (checkExistence('.game-flags_gameAreaContainer__tU8wK')) {
     document.querySelector('.game-flags_gameAreaContainer__tU8wK').style.backgroundColor = 'var(--gray)'
   }
@@ -190,12 +216,38 @@ function changeThemeVariables(state) {
 
 function manageLabelOpacity(state) {
   clearInterval(manageLabelOpacityInterval)
-  manageLabelOpacityInterval = setInterval(changeLabelOpacity, 100, state)
+  manageLabelOpacityInterval = setInterval(changeLabelOpacity, manageLabelOpacityTime, state)
 }
 
 function changeLabelOpacity(state) {
   if (checkExistence(labelSelector)) {
     document.querySelector(labelSelector).style.opacity = state
+  }
+}
+
+function manageBoldness(state) {
+  clearInterval(manageBoldnessInterval)
+  manageBoldnessInterval = setInterval(changeBoldness, manageBoldnessTime, state);
+}
+
+function changeBoldness(state) {
+  document.querySelectorAll('strong').forEach(element => {
+    if (state) {
+      element.style.fontWeight = 'normal'
+    }
+    else {
+      element.style.fontWeight = 'bold'
+    }
+  })
+}
+
+function manageLowSpecs(state) {
+  const times = [manageLabelsTime, manageFlagTime, manageHeaderTime, manageThemeBigTime, manageThemeSmallTime, manageLabelOpacityTime, manageBoldnessTime]
+  if (state) {
+    times.forEach(time => time *= 10)
+  }
+  else {
+    times.forEach(time => time /= 10)
   }
 }
 
