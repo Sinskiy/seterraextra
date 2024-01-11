@@ -1,6 +1,6 @@
 {
   "name": "Seterra extra",
-  "version": "1.3",
+  "version": "1.4",
   "description": "Darkmode, no label, custom water color and more!",
   "host_permissions": ["https://*.geoguessr.com/*"],
   "permissions": ["activeTab", "storage"],
@@ -20,4 +20,4 @@
   "action": {
     "default_popup": "popup.html"
   }
-  }
+}
