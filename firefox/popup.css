@@ -33,26 +33,6 @@ p {
   margin: 0;
 }
 
-/* images styling */
-#images {
-  display: flex;
-  justify-content: space-around;
-  position: sticky;
-  margin-bottom: 1rem;
-}
-#discord,
-a {
-  display: flex;
-  align-items: center;
-}
-
-img {
-  width: 2rem;
-  height: auto;
-  margin-right: 0.5rem;
-}
-
-
 /* options styling */
 #options-wrapper {
   display: flex;
@@ -116,4 +96,23 @@ label > .radio-button:active {
 /* slider styling */
 label#slider {
   flex-direction: column;
+}
+
+/* images styling */
+#images {
+  display: flex;
+  justify-content: space-around;
+  position: sticky;
+  margin-top: 1rem;
+}
+#discord,
+a {
+  display: flex;
+  align-items: center;
+}
+
+img {
+  width: 2rem;
+  height: auto;
+  margin-right: 0.5rem;
 }
