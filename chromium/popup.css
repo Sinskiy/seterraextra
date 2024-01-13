@@ -25,6 +25,7 @@ body {
 h1 {
   display: flex;
   justify-content: center;
+  position: sticky;
 }
 p {
   display: flex;
@@ -34,6 +35,26 @@ p {
 h1 {
   margin: 1rem 0 2rem 0;
 }
+
+/* images styling */
+#images {
+  display: flex;
+  justify-content: space-around;
+  margin: 1rem;
+  position: sticky;
+}
+#discord,
+a {
+  display: flex;
+  align-items: center;
+}
+
+img {
+  width: 2rem;
+  height: auto;
+  margin-right: 0.5rem;
+}
+
 
 /* options styling */
 #options-wrapper {
@@ -98,22 +119,4 @@ label > .radio-button:active {
 /* slider styling */
 label#slider {
   flex-direction: column;
-}
-
-/* images styling */
-#images {
-  display: flex;
-  justify-content: space-around;
-  margin: 1rem;
-}
-#discord,
-a {
-  display: flex;
-  align-items: center;
-}
-
-img {
-  width: 2rem;
-  height: auto;
-  margin-right: 0.5rem;
 }
