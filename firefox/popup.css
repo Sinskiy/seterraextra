@@ -32,16 +32,13 @@ p {
   justify-content: center;
   margin: 0;
 }
-h1 {
-  margin: 1rem 0 2rem 0;
-}
 
 /* images styling */
 #images {
   display: flex;
   justify-content: space-around;
-  margin: 1rem;
   position: sticky;
+  margin-bottom: 1rem;
 }
 #discord,
 a {
