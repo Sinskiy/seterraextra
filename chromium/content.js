@@ -35,7 +35,6 @@ chrome.runtime.onMessage.addListener((message) => {
 function getOptions() {
   chrome.storage.local.get(null).then((options) => {
     for (let option in options) {
-      console.log(option);
       acceptMessage(option, options[option]);
     }
   });
