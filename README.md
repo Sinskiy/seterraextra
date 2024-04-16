@@ -18,6 +18,7 @@
 ## Features
 
 This extensions adds following features for Seterra:
+
 - <strong>Remove corner flag</strong>. When enabled, flag in the top right corner of the quiz is invisible
 
 - <strong>No label, dark label</strong>. When no label is enabled, you won't have a label with the name and the flag of the country you need to click. Dark label makes the label dark

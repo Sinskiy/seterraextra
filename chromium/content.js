@@ -4,12 +4,12 @@ const darkGray = "#333333";
 const gray = "#ebebeb";
 const background = "#232323";
 
-const labelAreaSelector = ".game-area_tooltip__uwKTk:not(#createdLabelArea)";
+const labelAreaSelector = ".game-area_tooltip__Ns9Yi:not(#createdLabelArea)";
 const labelSelector = labelAreaSelector + ">div";
 let manageLabelsInterval;
 let manageLabelsTime = 10;
 
-const cornerFlag = ".corner-image_wrapper__6gzbe";
+const cornerFlag = '[data-qa="game-map-header"]+div';
 let manageFlagInterval;
 let manageFlagTime = 100;
 
@@ -28,13 +28,14 @@ let manageLabelOpacityTime = 100;
 let manageBoldnessInterval;
 let manageBoldnessTime = 50;
 
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener((message) => {
   acceptMessage(message.id, message.state);
 });
 
 function getOptions() {
   chrome.storage.local.get(null).then((options) => {
     for (let option in options) {
+      console.log(option);
       acceptMessage(option, options[option]);
     }
   });
@@ -64,8 +65,9 @@ function manageLabels(state) {
 }
 
 function changeLabels(state) {
-  if (!checkExistence(labelAreaSelector) || !checkExistence(labelSelector))
+  if (!checkExistence(labelAreaSelector) || !checkExistence(labelSelector)) {
     return;
+  }
 
   document.documentElement.style.setProperty("--labelDisplay", "flex");
   document.querySelector(labelAreaSelector).style.display =
@@ -137,32 +139,24 @@ function manageTheme(state) {
 }
 
 function changeThemeConstant(state) {
-  document.documentElement.style.setProperty("--originallyLight", "white");
-  let originallyLight = ".seterra_content__IQ6lE,.seterra_main__EGcCa";
+  let originallyLight = ".seterra_content__nGh5_,.seterra_main__mwfLw";
   document.querySelectorAll(originallyLight).forEach((element) => {
     element.style.backgroundColor = "var(--originallyLight)";
   });
 
-  document.documentElement.style.setProperty("--originallyDark", "black");
   let originallyDark =
-    "body,.seterra_root__5mvZs,.button_button__CnARx.button_variantSecondaryInverted__9kX_w,.button_link__xHa3x.button_variantSecondaryInverted__9kX_w";
+    "body,.seterra_root__NV8MT,.button_button__aR6_e.button_variantSecondaryInverted__6G2ex";
   document.querySelectorAll(originallyDark).forEach((element) => {
     element.style.color = "var(--originallyDark)";
   });
 
-  document.documentElement.style.setProperty(
-    "--links",
-    "var(--seterra-color-links)"
-  );
-  document.querySelectorAll(".games-list_linkItem__V_M6y a").forEach((link) => {
+  document.querySelectorAll(".games-list_linkItem__YHl_Y a").forEach((link) => {
     link.style.color = "var(--links)";
   });
 
-  document.documentElement.style.setProperty("--gray", "#ebebeb");
-
   document
     .querySelectorAll(
-      ".button_button__CnARx.button_variantSecondaryInverted__9kX_w, .button_link__xHa3x.button_variantSecondaryInverted__9kX_w"
+      ".button_button__aR6_e.button_variantSecondaryInverted__6G2ex"
     )
     .forEach((button) => {
       button.style.border = ".0625rem solid var(--originallyDark)";
@@ -185,49 +179,36 @@ function changeThemeConstant(state) {
 }
 
 function changeThemeVariables(state) {
-  if (checkExistence(".game-footer_settingsButton__6xv0w")) {
+  if (checkExistence(".game-footer_settingsButton__qIHi5")) {
     if (state) {
       document.querySelector(
-        ".game-footer_settingsButton__6xv0w"
+        ".game-footer_settingsButton__qIHi5"
       ).style.filter = "none";
     } else {
       document.querySelector(
-        ".game-footer_settingsButton__6xv0w"
+        ".game-footer_settingsButton__qIHi5"
       ).style.filter = "invert(1)";
     }
   }
 
-  if (checkExistence(".highscore_table__MNojq")) {
-    document.querySelector(".highscore_table__MNojq").style.backgroundColor =
-      "var(--originallyLight)";
-  }
-
-  if (checkExistence(".modal_colorWhite__4hqsv")) {
-    document.querySelector(".modal_colorWhite__4hqsv").style.color =
-      "var(--originallyDark)";
-    document.querySelector(".modal_colorWhite__4hqsv").style.backgroundColor =
-      "var(--originallyLight)";
-    document.querySelector(".modal_closeButton__rq9h_").style.border =
-      ".0625rem solid var(--Dark)";
+  if (checkExistence(".audio-player_playButton__vwNa2")) {
     if (state) {
-      document.querySelector(".modal_closeButton__rq9h_").style.filter =
-        "invert(1)";
+      document.querySelector(".audio-player_playButton__vwNa2").style.filter =
+        "none";
     } else {
-      document.querySelector(".modal_closeButton__rq9h_").style.filter = "none";
-    }
-    if (checkExistence('[data-qa="score-modal-review-button"]')) {
-      document.querySelector(
-        '[data-qa="score-modal-review-button"]'
-      ).style.color = "var(--originallyDark)";
-      document.querySelector(
-        '[data-qa="score-modal-review-button"]'
-      ).style.border = ".0625rem solid var(--originallyDark)";
+      document.querySelector(".audio-player_playButton__vwNa2").style.filter =
+        "invert(1)";
     }
   }
 
-  if (checkExistence(".game-type-map-input_form__VgUbS")) {
+  if (checkExistence(".highscore_table__oKrYg")) {
+    document.querySelector(".highscore_table__oKrYg").style.backgroundColor =
+      "var(--originallyLight)";
+  }
+
+  if (checkExistence(".game-type-map-input_form__TuvQM")) {
     document.querySelector(
-      ".game-type-map-input_form__VgUbS"
+      ".game-type-map-input_form__TuvQM"
     ).style.backgroundColor = "var(--originallyLight)";
 
     document.querySelector('[data-qa="typing-mode-input"]').style.color =
@@ -235,15 +216,8 @@ function changeThemeVariables(state) {
     document.querySelector(
       '[data-qa="typing-mode-input"]'
     ).style.backgroundColor = "var(--originallyLight)";
-    document.querySelector(".game-type-map-input_button__1K9uM").style.color =
+    document.querySelector(".game-type-map-input_button__MuD1c").style.color =
       "var(--originallyDark)";
-    if (checkExistence(".game-type-map-input_hint__AFJ47")) {
-      document.querySelector(".game-type-map-input_hint__AFJ47").style.color =
-        "var(--originallyDark)";
-      document.querySelector(
-        ".game-type-map-input_hint__AFJ47"
-      ).style.backgroundColor = "var(--originallyLight)";
-    }
   }
 
   if (checkExistence(".game-flags_gameAreaContainer__tU8wK")) {
